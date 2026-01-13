@@ -21,7 +21,8 @@ export default function Login() {
             setUser(res.data.user);
             navigate("/");
         } catch (err) {
-            setError(err.response?.data?.message || "Invalid email or password.");
+            console.error("Login Error:", err);
+            setError(err.response?.data?.message || "Connection failed. Please check if the server is offline.");
         } finally {
             setLoading(false);
         }

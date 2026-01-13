@@ -18,7 +18,8 @@ export default function Register() {
             alert("Account created successfully. Please login.");
             navigate("/login");
         } catch (err) {
-            setError(err.response?.data?.message || "Something went wrong.");
+            console.error("Registration Error:", err);
+            setError(err.response?.data?.message || "Connection failed. Please check if the server is offline or your Internet connection.");
         } finally {
             setLoading(false);
         }
