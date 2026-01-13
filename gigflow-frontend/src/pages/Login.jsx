@@ -89,6 +89,14 @@ export default function Login() {
                         </p>
                     </div>
                 </div>
+
+                {/* Debug Info for Connection */}
+                <div className="mt-8 text-center">
+                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse"></span>
+                        Render server may take 50s to wake up on first load
+                    </p>
+                </div>
             </motion.div>
         </div>
     );
