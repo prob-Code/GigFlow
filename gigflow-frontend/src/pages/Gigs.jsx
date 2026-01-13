@@ -10,7 +10,10 @@ export default function Gigs() {
 
     useEffect(() => {
         document.title = "Find the Best Freelance Gigs | GigFlow";
-        fetchGigs();
+        const timeout = setTimeout(() => {
+            fetchGigs();
+        }, 500);
+        return () => clearTimeout(timeout);
     }, [search]);
 
     const fetchGigs = async () => {

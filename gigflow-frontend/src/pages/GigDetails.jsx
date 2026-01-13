@@ -105,7 +105,7 @@ export default function GigDetails() {
                                 Active {gig.status}
                             </span>
                             <span className="border-l border-[#d5e0d5] pl-6">Budget: <span className="text-[#001e00] font-bold">${gig.budget}</span></span>
-                            <span className="border-l border-[#d5e0d5] pl-6">Posted by: <span className="text-[#001e00] font-bold">{gig.ownerId.name}</span></span>
+                            <span className="border-l border-[#d5e0d5] pl-6">Posted by: <span className="text-[#001e00] font-bold">{gig.ownerId?.name || "Member"}</span></span>
                         </div>
                     </header>
 
@@ -241,7 +241,7 @@ export default function GigDetails() {
                                                             {!b.initialPaymentPaid ? (
                                                                 <div className="flex gap-2">
                                                                     <a href={getUpiLink(b.freelancerUpi, b.freelancerId?.name, b.price / 2)} className="flex-1 py-1.5 bg-[#108a00] text-white text-[10px] font-bold rounded-lg text-center hover:bg-[#14a800]">Pay via UPI</a>
-                                                                    <button onClick={() => markPaid(b._id, 1)} className="px-3 py-1.5 borer border-[#d5e0d5] text-[10px] font-bold rounded-lg hover:bg-gray-50">Done</button>
+                                                                    <button onClick={() => markPaid(b._id, 1)} className="px-3 py-1.5 border border-[#d5e0d5] text-[10px] font-bold rounded-lg hover:bg-gray-50">Done</button>
                                                                 </div>
                                                             ) : (
                                                                 <div className="text-[#108a00] text-[10px] font-black uppercase flex items-center gap-1.5">
