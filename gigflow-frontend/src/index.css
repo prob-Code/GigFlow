@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --upwork-green: #108a00;
+  --upwork-green-hover: #14a800;
+  --upwork-bg: #ffffff;
+  --upwork-text: #001e00;
+  --upwork-secondary-text: #5e6d55;
+  --upwork-border: #d5e0d5;
+  --upwork-gray-bg: #f2f7f2;
+}
+
+body {
+  @apply bg-white text-[#001e00] min-h-screen antialiased;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Upwork-style components */
+.upwork-card {
+  @apply bg-white border border-[#d5e0d5] rounded-xl p-8 transition-all duration-300;
+}
+
+.upwork-input {
+  @apply w-full px-4 py-3 bg-white border border-[#d5e0d5] rounded-xl focus:outline-none focus:border-[#108a00] transition-all placeholder-gray-400 font-medium;
+}
+
+.upwork-btn-primary {
+  @apply px-8 py-3 bg-[#108a00] text-white rounded-full font-bold hover:bg-[#14a800] active:scale-[0.98] transition-all text-center flex items-center justify-center;
+}
+
+.upwork-btn-secondary {
+  @apply px-8 py-3 bg-white text-[#108a00] border-2 border-[#108a00] rounded-full font-bold hover:bg-[#f2f7f2] active:scale-[0.98] transition-all text-center flex items-center justify-center;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-white;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-200 rounded-full hover:bg-gray-300 border-2 border-white;
+}
+
+/* SEO Friendly utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Smooth transitions */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
