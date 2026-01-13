@@ -1,9 +1,11 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import api from "../api/axios";
+import { AuthContext } from "../context/AuthContext";
 
 export default function PostGig() {
+    const { user } = useContext(AuthContext);
     const [gig, setGig] = useState({ title: "", description: "", budget: "" });
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -21,6 +23,32 @@ export default function PostGig() {
             setLoading(false);
         }
     };
+
+    if (!user) {
+        return (
+            <div className="min-h-[calc(100vh-80px)] flex flex-col items-center justify-center bg-[#f2f7f2]/20 px-6">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="max-w-md w-full upwork-card text-center !p-12 shadow-2xl"
+                >
+                    <div className="w-20 h-20 bg-[#f2f7f2] rounded-full flex items-center justify-center mx-auto mb-8">
+                        <svg className="w-10 h-10 text-[#108a00]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </div>
+                    <h2 className="text-3xl font-bold text-[#001e00] mb-4">Post a Job</h2>
+                    <p className="text-[#5e6d55] mb-10 leading-relaxed">
+                        Log in or sign up to Post a job opportunity and connect with top-tier freelance talent.
+                    </p>
+                    <div className="space-y-4">
+                        <Link to="/login" className="upwork-btn-primary block w-full py-4 text-center text-lg">Log In</Link>
+                        <Link to="/register" className="upwork-btn-secondary block w-full py-4 text-center text-lg border-2">Create Account</Link>
+                    </div>
+                </motion.div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-[calc(100vh-80px)] bg-[#f2f7f2]/20 py-16 px-6">

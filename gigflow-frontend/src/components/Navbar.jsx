@@ -24,9 +24,7 @@ export default function Navbar() {
 
                     <div className="hidden md:flex items-center gap-6">
                         <Link to="/" className="text-sm font-semibold text-[#001e00] hover:text-[#108a00] transition-colors">Find Gigs</Link>
-                        {user && (
-                            <Link to="/post" className="text-sm font-semibold text-[#001e00] hover:text-[#108a00] transition-colors">Post a Gig</Link>
-                        )}
+                        <Link to="/post" className="text-sm font-semibold text-[#001e00] hover:text-[#108a00] transition-colors">Post a Gig</Link>
                     </div>
                 </div>
 
