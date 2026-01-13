@@ -12,6 +12,9 @@ import User from "./models/User.js";
 dotenv.config();
 const app = express();
 
+// Trust proxy for secure cookies on Render
+app.set("trust proxy", 1);
+
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
