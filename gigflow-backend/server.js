@@ -19,20 +19,18 @@ app.set("trust proxy", 1);
 app.use(express.json());
 app.use(cookieParser());
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  process.env.FRONTEND_URL,
-  process.env.FRONTEND_URL?.replace(/\/$/, ""),
-].filter(Boolean);
+// Debug logging and typo mitigation
+app.use((req, res, next) => {
+  // Normalize potential 'aoi' typo to 'api'
+  if (req.url.startsWith('/aoi')) {
+    req.url = req.url.replace('/aoi', '/api');
+  }
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url} - Origin: ${req.get('Origin')}`);
+  next();
+});
 
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin) || origin.endsWith(".vercel.app")) {
-      callback(null, true);
-    } else {
-      callback(null, false);
-    }
-  },
+  origin: true, // Reflects the origin of the request, required for credentials
   credentials: true
 }));
 
