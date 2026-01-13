@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
 
+// Standard Login Page - Google Auth Removed
 export default function Login() {
     const { setUser } = useContext(AuthContext);
     const [email, setEmail] = useState("");
