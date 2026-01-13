@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { GoogleLogin } from "@react-oauth/google";
 import { motion } from "framer-motion";
 import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
@@ -28,15 +27,6 @@ export default function Login() {
         }
     };
 
-    const handleGoogleSuccess = async (credentialResponse) => {
-        try {
-            const res = await api.post("/auth/google", { credential: credentialResponse.credential });
-            setUser(res.data.user);
-            navigate("/");
-        } catch (err) {
-            setError("Google Authentication failed.");
-        }
-    };
 
     return (
         <div className="min-h-[calc(100vh-80px)] flex flex-col items-center justify-center bg-[#f2f7f2]/30 px-6 py-20">
@@ -90,20 +80,6 @@ export default function Login() {
                         </button>
                     </form>
 
-                    <div className="relative my-10 text-center">
-                        <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-[#d5e0d5]"></div></div>
-                        <span className="relative px-4 text-xs font-bold uppercase tracking-widest text-[#5e6d55] bg-white">or</span>
-                    </div>
-
-                    <div className="flex justify-center mb-8">
-                        <GoogleLogin
-                            onSuccess={handleGoogleSuccess}
-                            onError={() => setError("Google Login failed")}
-                            shape="pill"
-                            text="continue_with"
-                            width="100%"
-                        />
-                    </div>
 
                     <div className="text-center pt-8 border-t border-[#d5e0d5]">
                         <p className="text-sm text-[#5e6d55]">

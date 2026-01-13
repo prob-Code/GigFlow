@@ -1,11 +1,9 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { OAuth2Client } from "google-auth-library";
 import User from "../models/User.js";
 
 const router = express.Router();
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 router.post("/register", async (req, res) => {
   try {
@@ -44,32 +42,5 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/google", async (req, res) => {
-  try {
-    const { credential } = req.body;
-    const ticket = await client.verifyIdToken({
-      idToken: credential,
-      audience: process.env.GOOGLE_CLIENT_ID
-    });
-    const { name, email, sub } = ticket.getPayload();
-
-    let user = await User.findOne({ email });
-    if (!user) {
-      // Create account for first-time google users
-      user = await User.create({ name, email, password: sub }); // Use google id as dummy pass
-    }
-
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
-    res.cookie("token", token, { httpOnly: true, sameSite: "lax", secure: false });
-
-    res.json({
-      message: "Google Login successful",
-      user: { id: user._id, name: user.name, email: user.email }
-    });
-  } catch (error) {
-    console.error("Google Login error:", error);
-    res.status(500).json({ message: "Google Authentication failed" });
-  }
-});
 
 export default router;
