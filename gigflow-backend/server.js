@@ -34,8 +34,16 @@ app.use("/api/bids", bidRoutes);
 // Seed Route (Convenience for "More Works")
 app.post("/api/seed", async (req, res) => {
   try {
-    const admin = await User.findOne(); // Assign to first user found
-    if (!admin) return res.status(400).json({ message: "Register a user first!" });
+    let admin = await User.findOne();
+    
+    // Create a dummy system user if no one has registered yet
+    if (!admin) {
+      admin = await User.create({
+        name: "GigFlow System",
+        email: "system@gigflow.com",
+        password: "hashed_dummy_password"
+      });
+    }
 
     const seedGigs = [
       { title: "iOS App Motion Design", description: "Looking for an expert to refine transitions in an Apple-style health app. Must understand SF Symbols and fluid mechanics.", budget: 2500, ownerId: admin._id, status: "open" },
@@ -44,7 +52,7 @@ app.post("/api/seed", async (req, res) => {
       { title: "Premium Iconography Set", description: "Create 50 custom vector icons following Apple's Human Interface Guidelines.", budget: 1200, ownerId: admin._id, status: "open" }
     ];
 
-    await Gig.deleteMany({ title: { $in: seedGigs.map(g => g.title) } }); // Clean old seeds
+    await Gig.deleteMany({ title: { $in: seedGigs.map(g => g.title) } });
     await Gig.insertMany(seedGigs);
     res.json({ message: "Seed successful! Gigs added." });
   } catch (err) {

@@ -30,7 +30,7 @@ export default function Gigs() {
             await api.post("/seed");
             fetchGigs();
         } catch (err) {
-            alert("Registration/Login required to explore sample works!");
+            console.error("Seeding failed");
         }
     };
 

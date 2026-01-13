@@ -128,7 +128,16 @@ export default function GigDetails() {
 
                 <aside className="lg:w-[450px]">
                     <div className="sticky top-24">
-                        {!isOwner ? (
+                        {!user ? (
+                            <div className="upwork-card shadow-sm text-center py-12">
+                                <h3 className="text-xl font-bold mb-4">Want to apply for this job?</h3>
+                                <p className="text-[#5e6d55] mb-8 px-4">Create an account or log in to submit a proposal for this opportunity.</p>
+                                <div className="space-y-3 px-6">
+                                    <Link to="/login" className="upwork-btn-primary block w-full">Log In</Link>
+                                    <Link to="/register" className="upwork-btn-secondary block w-full">Sign Up</Link>
+                                </div>
+                            </div>
+                        ) : !isOwner ? (
                             <div className="upwork-card shadow-sm">
                                 <h3 className="text-xl font-bold mb-6">Submit a Proposal</h3>
                                 {gig.status !== 'open' ? (
